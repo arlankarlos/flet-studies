@@ -12,7 +12,7 @@ class CalcButton(ft.ElevatedButton):
 
 class DigitButton(CalcButton):
     def __init__(self, text, button_clicked, expand=1):
-        CalcButton.__init__(self, text,button_clicked, expand)
+        CalcButton.__init__(self, text, button_clicked, expand)
         self.bgcolor = ft.colors.WHITE24
         self.color = ft.colors.WHITE
 
@@ -43,49 +43,55 @@ class CalculatorApp(ft.Container):
         self.border_radius = ft.border_radius.all(20)
         self.padding = 20
         self.content = ft.Column(
-                controls=[
-                    ft.Row(controls=[self.result], alignment="end"),
-                    ft.Row(
-                        controls=[
-                            ExtraActionButton(text="AC", button_clicked=self.button_clicked),
-                            ExtraActionButton(text="+/-", button_clicked=self.button_clicked),
-                            ExtraActionButton(text="%", button_clicked=self.button_clicked),
-                            ActionButton(text="/", button_clicked=self.button_clicked),
-                        ]
-                    ),
-                    ft.Row(
-                        controls=[
-                            DigitButton(text="7", button_clicked=self.button_clicked),
-                            DigitButton(text="8", button_clicked=self.button_clicked),
-                            DigitButton(text="9", button_clicked=self.button_clicked),
-                            ActionButton(text="*", button_clicked=self.button_clicked),
-                        ]
-                    ),
-                    ft.Row(
-                        controls=[
-                            DigitButton(text="4", button_clicked=self.button_clicked),
-                            DigitButton(text="5", button_clicked=self.button_clicked),
-                            DigitButton(text="6", button_clicked=self.button_clicked),
-                            ActionButton(text="-", button_clicked=self.button_clicked),
-                        ]
-                    ),
-                    ft.Row(
-                        controls=[
-                            DigitButton(text="1", button_clicked=self.button_clicked),
-                            DigitButton(text="2", button_clicked=self.button_clicked),
-                            DigitButton(text="3", button_clicked=self.button_clicked),
-                            ActionButton(text="+", button_clicked=self.button_clicked),
-                        ]
-                    ),
-                    ft.Row(
-                        controls=[
-                            DigitButton(text="0", expand=2, button_clicked=self.button_clicked),
-                            DigitButton(text=".", button_clicked=self.button_clicked),
-                            ActionButton(text="=", button_clicked=self.button_clicked),
-                        ]
-                    ),
-                ]
-            )
+            controls=[
+                ft.Row(controls=[self.result], alignment="end"),
+                ft.Row(
+                    controls=[
+                        ExtraActionButton(
+                            text="AC", button_clicked=self.button_clicked
+                        ),
+                        ExtraActionButton(
+                            text="+/-", button_clicked=self.button_clicked
+                        ),
+                        ExtraActionButton(text="%", button_clicked=self.button_clicked),
+                        ActionButton(text="/", button_clicked=self.button_clicked),
+                    ]
+                ),
+                ft.Row(
+                    controls=[
+                        DigitButton(text="7", button_clicked=self.button_clicked),
+                        DigitButton(text="8", button_clicked=self.button_clicked),
+                        DigitButton(text="9", button_clicked=self.button_clicked),
+                        ActionButton(text="*", button_clicked=self.button_clicked),
+                    ]
+                ),
+                ft.Row(
+                    controls=[
+                        DigitButton(text="4", button_clicked=self.button_clicked),
+                        DigitButton(text="5", button_clicked=self.button_clicked),
+                        DigitButton(text="6", button_clicked=self.button_clicked),
+                        ActionButton(text="-", button_clicked=self.button_clicked),
+                    ]
+                ),
+                ft.Row(
+                    controls=[
+                        DigitButton(text="1", button_clicked=self.button_clicked),
+                        DigitButton(text="2", button_clicked=self.button_clicked),
+                        DigitButton(text="3", button_clicked=self.button_clicked),
+                        ActionButton(text="+", button_clicked=self.button_clicked),
+                    ]
+                ),
+                ft.Row(
+                    controls=[
+                        DigitButton(
+                            text="0", expand=2, button_clicked=self.button_clicked
+                        ),
+                        DigitButton(text=".", button_clicked=self.button_clicked),
+                        ActionButton(text="=", button_clicked=self.button_clicked),
+                    ]
+                ),
+            ]
+        )
 
     def button_clicked(self, e):
         data = e.control.data
@@ -103,8 +109,7 @@ class CalculatorApp(ft.Container):
 
         elif data in ("+", "-", "*", "/"):
             self.result.value = self.calculate(
-                self.operand1, float(self.result.value),
-                self.operator
+                self.operand1, float(self.result.value), self.operator
             )
             self.operator = data
             if self.result.value == "Error":
@@ -115,8 +120,7 @@ class CalculatorApp(ft.Container):
 
         elif data in ("="):
             self.result.value = self.calculate(
-                self.operand1, float(self.result.value),
-                self.operator
+                self.operand1, float(self.result.value), self.operator
             )
             self.reset()
 
@@ -155,17 +159,3 @@ class CalculatorApp(ft.Container):
         self.operator = "+"
         self.operand1 = 0
         self.new_operand = True
-
-
-def main(page: ft.Page):
-    page.title = "Calc App"
-    # create application instance
-    calc = CalculatorApp()
-    page.window.height = 330
-    page.window.width = 390
-    page.window.resizable = False
-    # add application's root control to the page
-    page.add(calc)
-
-if __name__ == "__main__":
-    ft.app(target=main)

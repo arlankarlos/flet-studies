@@ -1,6 +1,17 @@
 import flet as ft
+from calculator.ui import CalculatorApp
+
 
 def main(page: ft.Page):
-    page.add(ft.Text(value="Hello, World!", size=30, font_family="Consolas"))
+    page.title = "Calc App"
+    # create application instance
+    calc = CalculatorApp()
+    page.window.height = 330
+    page.window.width = 390
+    page.window.resizable = False
+    # add application's root control to the page
+    page.add(calc)
 
-ft.app(target=main)
+
+if __name__ == "__main__":
+    ft.app(target=main)
